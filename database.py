@@ -65,12 +65,28 @@ def del_pr(id):
 # Метод для изменения количества
 def change_pr_count(id, new_count):
     # Текущее кол-во товара
-    now_count = sql.execute('SELECT pr_count WHERE id=?;', (id,)).fetchone()
+    now_count = sql.execute('SELECT pr_count FROM products WHERE id=?;', (id,)).fetchone()
     # Приход товара
     plus_count = now_count[0] + new_count
     sql.execute('UPDATE products SET pr_count=? WHERE id=?;', (plus_count, id))
     # Фиксируем изменения
     connection.commit()
+
+
+# Метод для проверки наличия продуктов в базе
+def check_pr():
+    if sql.execute('SELECT * FROM products;').fetchall():
+        return True
+    else:
+        return False
+
+
+# Метод для проверки наличия продукта по id
+def check_pr_id(id):
+    if sql.execute('SELECT id FROM products WHERE id=?;', (id,)).fetchone():
+        return True
+    else:
+        return False
 
 
 ## Методы корзины ##
