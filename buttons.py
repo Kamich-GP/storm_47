@@ -86,3 +86,18 @@ def confirm():
     kb.add(but1, but2)
     return kb
 
+
+# Кнопки для корзины
+def cart_buttons():
+    # Создаем пространство
+    kb = types.InlineKeyboardMarkup(row_width=2)
+
+    # Создаем сами кнопки
+    order = types.InlineKeyboardButton(text='Оформить заказ', callback_data='order')
+    clear = types.InlineKeyboardButton(text='Очистить корзину', callback_data='clear')
+    back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+
+    # Добавляем кнопки в пространство
+    kb.add(order, clear)
+    kb.row(back)
+    return kb
