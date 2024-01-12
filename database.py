@@ -73,6 +73,13 @@ def change_pr_count(id, new_count):
     connection.commit()
 
 
+# Метод для получения id товаров
+def get_pr_name_id():
+    prods = sql.execute('SELECT id, pr_count FROM products;').fetchall()
+    all_prods = [i[0] for i in prods if i[1] > 0]
+    return all_prods
+
+
 # Метод для проверки наличия продуктов в базе
 def check_pr():
     if sql.execute('SELECT * FROM products;').fetchall():

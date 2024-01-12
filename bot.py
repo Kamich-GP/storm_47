@@ -2,10 +2,9 @@ import telebot, database as db, buttons as bt
 from geopy import Nominatim
 
 # Создать объект бота
-bot = telebot.TeleBot('6815759762:AAEtxvJNQ6L41kiqTOaTeQ1kWhE-Zz63A0c')
+bot = telebot.TeleBot('TOKEN')
 # Использование карт
-geolocator = Nominatim(user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                                  'Chrome/120.0.0.0 Safari/537.36')
+geolocator = Nominatim(user_agent='USER AGENT')
 # Временные данные
 users = {}
 
@@ -14,7 +13,6 @@ users = {}
 @bot.message_handler(commands=['start'])
 def start_message(message):
     user_id = message.from_user.id
-    print(user_id)
     # Проверка пользователя
     check = db.checker(user_id)
     if check:
@@ -147,7 +145,7 @@ def cart_handle(call):
 
 
 # Вывод информации о продукте
-@bot.callback_query_handler(lambda call: int(call.data) in db.get_pr_but()[0])
+@bot.callback_query_handler(lambda call: int(call.data) in db.get_pr_name_id())
 def get_user_product(call):
     chat_id = call.message.chat.id
     prod = db.get_pr(int(call.data))
